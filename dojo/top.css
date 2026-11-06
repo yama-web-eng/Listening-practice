@@ -60,3 +60,7 @@ body.home{background:#fbfcfe;color:var(--ink);font-family:"Zen Maru Gothic","Hir
 .home footer{margin-top:34px;letter-spacing:.2em}
 
 .sample{text-align:center;margin:26px 0 0;font-size:.9rem}.sample a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px dashed var(--blue)}
+
+.welcome.kt{display:flex;align-items:flex-end;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px 0 14px;margin-bottom:30px;overflow:hidden}
+.welcome.kt .kt-img{flex:0 0 auto;height:auto;width:86px;display:block;margin-top:-6px}
+.welcome.kt>div{padding-bottom:16px;align-self:center}
