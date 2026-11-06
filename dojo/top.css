@@ -1,0 +1,33 @@
+/* トップページ専用(ヨビノリ風:黒板ヒーロー+サムネイル風タイル) */
+body.home{background:#f6faff}
+.home .top{border-bottom:0;padding:10px 16px}
+.board{position:relative;background:
+ radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.10),transparent 60%),
+ repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 2px,transparent 2px 5px),
+ linear-gradient(160deg,#1c5f9a,#134872);
+ color:#fff;text-align:center;padding:30px 16px 34px;border-top:6px solid var(--orange);border-bottom:10px solid #d9a066;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
+.board .chalk-sub{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.12em;opacity:.92}
+.board h1{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;color:#fff;font-size:2.15rem;margin:6px 0 4px;letter-spacing:.06em;text-shadow:0 2px 0 rgba(0,0,0,.2)}
+.board h1 span{display:inline-block;border-bottom:5px solid #ffd08a;padding:0 6px 2px;border-radius:2px}
+.board .eq{font-family:"Klee One",serif;color:#cfe6fb;opacity:.85;font-size:.9rem;margin-top:10px;letter-spacing:.08em}
+.board nav{margin-top:16px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
+.board nav a{font-family:"Klee One",sans-serif;font-weight:600;color:#fff;text-decoration:none;padding:3px 14px;border-radius:999px;font-size:.9rem;background:rgba(255,255,255,.14)}
+.board .ledge{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);display:flex;gap:6px}
+.wrap{max-width:640px;margin:0 auto;padding:22px 16px 48px}
+.welcome{background:#fff;border:3px solid var(--blue2);border-radius:22px;padding:14px 18px;margin:0 0 22px;font-weight:500}
+.welcome b{color:var(--blue)}
+.sec{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:1.15rem;color:var(--blue);margin:0 0 12px;display:flex;align-items:center;gap:8px}
+.sec::after{content:"";flex:1;height:0;border-top:3px dotted var(--orange)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:420px){.grid{gap:10px}}
+.tile{position:relative;display:block;text-decoration:none;color:var(--fg);background:#fff;border-radius:20px;overflow:hidden;border:3px solid var(--c,var(--blue));box-shadow:0 5px 0 var(--c,var(--blue))}
+.tile .pic{height:96px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:var(--c2,var(--blue2));position:relative}
+.tile .pic::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.35) 0 8px,transparent 8px 16px)}
+.tile .pic i{position:relative;font-style:normal}
+.tile .tx{padding:10px 12px 12px}
+.tile .tt{font-weight:900;font-size:1.02rem;line-height:1.35}
+.tile .ds{font-size:.76rem;color:var(--grey);font-weight:500;line-height:1.5;margin-top:3px}
+.tile.o{--c:var(--orange);--c2:var(--orange2)}.tile.g{--c:var(--green);--c2:var(--green2)}.tile.p{--c:#8b6fd6;--c2:#efeafc}
+.tile .ribbon{position:absolute;top:8px;right:8px;background:var(--orange);color:#fff;font-size:.68rem;font-weight:700;border-radius:999px;padding:1px 9px;z-index:2}
+.tile.soon{pointer-events:none}
+.home footer{margin-top:30px}
