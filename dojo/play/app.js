@@ -1,4 +1,5 @@
 (function(){
+var AUDIO_BASE=document.currentScript.src.replace(/play\/app\.js.*$/,'audio/');
 var app=document.getElementById('app');
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -10,6 +11,16 @@ function startCourse(n){course=n;order=shuffle(cfg.data).slice(0,Math.min(n,N));
 function retryWrong(){order=shuffle(wrong);idx=0;score=0;answered=0;wrong=[];render()}
 function mark(q,ok){answered++;if(ok)hit();else wrong.push(q)}
 function qText(q){if(MODE==='form')return esc(q.s.replace('{}','( '+q.v+' )'));if(MODE==='reorder')return '語を並べかえ: '+esc(shuffle(q.w.split(' ')).join(' / '));if(MODE==='basic')return esc(q.q);return esc(q.j)}
+function slug(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'')}
+var curAudio=null;
+function audioBtn(text){if(typeof KT_AUDIO==='undefined')return '';return '<button type="button" class="sound" data-t="'+esc(text)+'"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.7 5.8a9 9 0 0 1 0 12.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>音声を聞く</span></button>'}
+function bindAudio(){Array.prototype.forEach.call(app.querySelectorAll('.sound'),function(b){b.onclick=function(){
+ try{if(curAudio){curAudio.pause()}}catch(e){}
+ var au=new Audio(AUDIO_BASE+slug(b.getAttribute('data-t'))+'.mp3');curAudio=au;
+ b.classList.add('on');au.onended=function(){b.classList.remove('on')};
+ au.onerror=function(){b.classList.remove('on');b.querySelector('span').textContent='音声がありません'};
+ var pr=au.play();if(pr&&pr.catch)pr.catch(function(){b.classList.remove('on')})}})}
+
 function hit(){score++}
 function header(){return '<div class="meta"><span>'+(idx+1)+' / '+order.length+' もん目</span><span>正解 '+score+' / '+answered+'</span></div><div class="bar"><i style="width:'+Math.round(idx/order.length*100)+'%"></i></div>'}
 var OKS=['正解!','ナイス!','その調子!','いいね!'];var NGS=['おしい!','目印を見直してみよう','次はできる!','ここで覚えよう'];
@@ -39,7 +50,7 @@ function rForm(q){
   var p0=esc(parts[0]);if(q.n)p0=p0.replace(esc(q.n),'<span class="ant">'+esc(q.n)+'</span>');var full=p0+'<b>'+esc(q.a[0])+'</b>'+esc(parts[1]);
   q.m.forEach(function(m){full=full.replace(esc(m),'<mark>'+esc(m)+'</mark>')});
   mark(q,ok);
-  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.a[0])+'」')+'</b><p class="en">'+full+'</p><p>目印: '+q.m.map(function(m){return '<mark>'+esc(m)+'</mark>'}).join(' ')+'<br>'+esc(q.e).replace('　★','<br>★')+'</p></div>'+nextBtn();
+  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.a[0])+'」')+'</b><p class="en">'+full+'</p><p>目印: '+q.m.map(function(m){return '<mark>'+esc(m)+'</mark>'}).join(' ')+'<br>'+esc(q.e).replace('　★','<br>★')+'</p>'+audioBtn(q.s.replace('{}',q.a[0]))+'</div>'+nextBtn();bindAudio();
   document.getElementById('chk').disabled=true;inp.disabled=true;bindNext()}
  document.getElementById('chk').onclick=check;
  inp.onkeydown=function(e){if(e.key==='Enter'&&!inp.disabled)check()}
@@ -61,7 +72,7 @@ function rReorder(q){
  chk.onclick=function(){
   done=true;var mine=picked.map(function(i){return words[i]}).join(' ');
   var ok=norm(mine)===norm(q.a);mark(q,ok);
-  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS))+'</b><p class="en">'+esc(q.a)+'</p>'+(ok?'':'<p class="hint">あなたの答え: '+esc(mine)+'</p>')+'<p class="hint">プリントでは、文頭は大文字・最後はピリオドを忘れずに</p></div>'+nextBtn();
+  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS))+'</b><p class="en">'+esc(q.a)+'</p>'+(ok?'':'<p class="hint">あなたの答え: '+esc(mine)+'</p>')+'<p class="hint">プリントでは、文頭は大文字・最後はピリオドを忘れずに</p>'+audioBtn(q.a)+'</div>'+nextBtn();bindAudio();
   chk.disabled=true;draw();bindNext()}
 }
 
@@ -76,11 +87,11 @@ function rTrans(q){
   var ok=accepted.indexOf(norm(inp.value))>=0;
   document.getElementById('chk').disabled=true;inp.disabled=true;
   if(ok){mark(q,true);
-   document.getElementById('res').innerHTML='<div class="res ok"><b class="big ok">'+pick(OKS)+'</b><p class="en">'+esc(model)+'</p><p>'+esc(q.m)+'</p></div>'+nextBtn();bindNext()}
+   document.getElementById('res').innerHTML='<div class="res ok"><b class="big ok">'+pick(OKS)+'</b><p class="en">'+esc(model)+'</p><p>'+esc(q.m)+'</p>'+audioBtn(model)+'</div>'+nextBtn();bindAudio();bindNext()}
   else{
-   document.getElementById('res').innerHTML='<div class="res ng"><b class="big ng">あれ?ちがうかも</b><p class="hint">あなたの答え: '+esc(inp.value||'(未入力)')+'</p><p class="en">模範解答: '+esc(model)+'</p><p>'+esc(q.m)+'</p><p>言い方がちがうだけで、文法的に正しければ○にしてOK。自分で判定しよう。</p><button id="okb">自分の答えも正しかった</button><button id="ngb" class="sub2">まちがっていた</button></div>';
+   document.getElementById('res').innerHTML='<div class="res ng"><b class="big ng">あれ?ちがうかも</b><p class="hint">あなたの答え: '+esc(inp.value||'(未入力)')+'</p><p class="en">模範解答: '+esc(model)+'</p><p>'+esc(q.m)+'</p>'+audioBtn(model)+'<p>言い方がちがうだけで、文法的に正しければ○にしてOK。自分で判定しよう。</p><button id="okb">自分の答えも正しかった</button><button id="ngb" class="sub2">まちがっていた</button></div>';
    function go(good){mark(q,good);document.getElementById('res').insertAdjacentHTML('beforeend',nextBtn());document.getElementById('okb').disabled=true;document.getElementById('ngb').disabled=true;bindNext()}
-   document.getElementById('okb').onclick=function(){go(true)};document.getElementById('ngb').onclick=function(){go(false)}}}
+   bindAudio();document.getElementById('okb').onclick=function(){go(true)};document.getElementById('ngb').onclick=function(){go(false)}}}
  document.getElementById('chk').onclick=check;
  inp.onkeydown=function(e){if(e.key==='Enter'&&!inp.disabled)check()}
 }

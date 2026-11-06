@@ -1,4 +1,5 @@
 // 中3 Unit 4(関係代名詞 主格)専用の問題。各25問。
+var KT_AUDIO=true; // 答えの英文の音声(../../audio/)を表示する
 var FORM=[
 {"s": "The boy who {} the piano every day is my brother.", "v": "play", "a": ["plays"], "m": ["every day"], "t": "present", "e": "every day があるので現在の文。先行詞 The boy は3人称単数 → who の後ろの動詞は plays(3単現の s)", "n": "The boy"},
 {"s": "I know a girl who {} in Hokkaido.", "v": "live", "a": ["lives"], "m": ["I know"], "t": "present", "e": "I know(知っている)は現在の文。先行詞 a girl は3人称単数 → lives", "n": "a girl"},

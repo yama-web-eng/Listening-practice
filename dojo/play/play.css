@@ -84,3 +84,7 @@ button.choice:hover:not(:disabled){border-color:var(--blue);background:#f4f8fc}
 button.choice:disabled{opacity:1;cursor:default}
 button.choice.right{border-color:#2e9e6b;background:#eaf7f0;font-weight:700}
 button.choice.bad{border-color:#d9534f;background:#fdeeee}
+
+button.sound{display:inline-flex;align-items:center;gap:8px;margin:6px 0 4px;padding:9px 16px;border:1.5px solid var(--blue);border-radius:999px;background:#fff;color:var(--blue);font:inherit;font-size:.92rem;font-weight:700;cursor:pointer;width:auto}
+button.sound:hover{background:#f4f8fc}
+button.sound.on{background:var(--blue);color:#fff}
