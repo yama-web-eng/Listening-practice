@@ -1,18 +1,26 @@
 /* トップページ専用(ヨビノリ風:黒板ヒーロー+サムネイル風タイル) */
 body.home{background:#f6faff}
 .home .top{border-bottom:0;padding:10px 16px}
-.board{position:relative;background:
- radial-gradient(120% 90% at 20% 0%,rgba(255,255,255,.10),transparent 60%),
- repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 2px,transparent 2px 5px),
- linear-gradient(160deg,#1c5f9a,#134872);
- color:#fff;text-align:center;padding:30px 16px 34px;border-top:6px solid var(--orange);border-bottom:10px solid #d9a066;box-shadow:inset 0 -6px 0 rgba(0,0,0,.18)}
-.board .chalk-sub{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.12em;opacity:.92}
-.board h1{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;color:#fff;font-size:2.15rem;margin:6px 0 4px;letter-spacing:.06em;text-shadow:0 2px 0 rgba(0,0,0,.2)}
-.board h1 span{display:inline-block;border-bottom:5px solid #ffd08a;padding:0 6px 2px;border-radius:2px}
-.board .eq{font-family:"Klee One",serif;color:#cfe6fb;opacity:.85;font-size:.9rem;margin-top:10px;letter-spacing:.08em}
-.board nav{margin-top:16px;display:flex;justify-content:center;gap:6px;flex-wrap:wrap}
-.board nav a{font-family:"Klee One",sans-serif;font-weight:600;color:#fff;text-decoration:none;padding:3px 14px;border-radius:999px;font-size:.9rem;background:rgba(255,255,255,.14)}
-.board .ledge{position:absolute;left:50%;bottom:-10px;transform:translateX(-50%);display:flex;gap:6px}
+.boardwrap{background:#f6faff;padding:14px 12px 0}
+.board{position:relative;max-width:640px;margin:0 auto;color:#f4f7f2;text-align:center;padding:30px 16px 34px;border-radius:6px;
+ border:12px solid #b9824a;border-image:none;
+ background:
+  radial-gradient(60% 40% at 25% 20%,rgba(255,255,255,.10),transparent 70%),
+  radial-gradient(50% 35% at 80% 75%,rgba(255,255,255,.07),transparent 70%),
+  repeating-linear-gradient(100deg,rgba(255,255,255,.02) 0 3px,transparent 3px 9px),
+  linear-gradient(160deg,#2f4a40,#22372f);
+ box-shadow:inset 0 0 0 3px #8a5a2c,inset 0 0 40px rgba(0,0,0,.45),0 4px 0 #7a4e24}
+.board .chalk-sub{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.12em;color:#ffd9a0}
+.board h1{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;color:#fbfdf8;font-size:2.15rem;margin:6px 0 4px;letter-spacing:.06em;text-shadow:0 0 2px rgba(255,255,255,.55),1px 1px 0 rgba(255,255,255,.18)}
+.board h1 span{display:inline-block;border-bottom:5px solid #ffb35c;padding:0 6px 2px;border-radius:3px;box-shadow:0 0 6px rgba(255,179,92,.5)}
+.board .eq{font-family:"Klee One",serif;color:#a9d3f5;font-size:.95rem;margin-top:10px;letter-spacing:.08em;text-shadow:0 0 3px rgba(169,211,245,.5)}
+.board nav{margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.board nav a{font-family:"Klee One",sans-serif;font-weight:600;color:#f4f7f2;text-decoration:none;padding:2px 14px;border-radius:999px;font-size:.9rem;border:2px dashed rgba(255,255,255,.6)}
+.tray{position:relative;max-width:640px;margin:0 auto;height:14px;background:linear-gradient(#c99560,#a8743f);border-radius:0 0 8px 8px;box-shadow:0 4px 0 #7a4e24}
+.tray i{position:absolute;top:-7px;height:9px;border-radius:5px;box-shadow:0 1px 0 rgba(0,0,0,.25)}
+.tray i:nth-child(1){left:12%;width:34px;background:#fff}
+.tray i:nth-child(2){left:calc(12% + 42px);width:26px;background:#ffb35c}
+.tray i:nth-child(3){right:14%;width:30px;background:#7cc0f2}
 .wrap{max-width:640px;margin:0 auto;padding:22px 16px 48px}
 .welcome{background:#fff;border:3px solid var(--blue2);border-radius:22px;padding:14px 18px;margin:0 0 22px;font-weight:500}
 .welcome b{color:var(--blue)}
