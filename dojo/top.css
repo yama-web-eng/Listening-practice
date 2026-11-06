@@ -25,7 +25,8 @@ body.home{background:#fbfcfe;color:var(--ink);font-family:"Zen Maru Gothic","Hir
 .board h1{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:2.3rem;letter-spacing:.08em;margin:8px 0 10px;color:#fbfdf8;opacity:.95}
 .board .uline{display:block;width:62%;max-width:300px;height:8px;margin:0 auto 12px}
 .board .eq{font-family:"Klee One",serif;font-size:1rem;letter-spacing:.1em;color:#bcdcf6;opacity:.92}
-.board .scrawl{position:absolute;color:rgba(255,255,255,.28);font-family:"Klee One",serif;font-size:.9rem;pointer-events:none}
+.board .scrawl{position:absolute;color:rgba(255,255,255,.26);font-family:"Klee One",serif;font-size:.82rem;pointer-events:none;filter:url(#chalk)}
+@media(max-width:520px){.board .scrawl{display:none}}
 /* チョーク受け */
 .tray{position:relative;margin:0 -2px;height:16px;background:linear-gradient(#b98652,#8f6137);border-radius:0 0 4px 4px;box-shadow:0 3px 0 #6d4824;max-width:720px}
 .trays{max-width:720px;margin:0 auto;padding:0 14px}
