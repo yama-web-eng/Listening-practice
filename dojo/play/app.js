@@ -5,14 +5,15 @@ function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(M
 function norm(s){return s.toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,]/g,' ').replace(/\s+/g,' ').trim()}
 function expand(s){var re=/\(([^()|]+(?:\|[^()|]+)+)\)/;var m=re.exec(s);if(!m)return[s];var out=[];m[1].split('|').forEach(function(o){expand(s.replace(re,o)).forEach(function(x){out.push(x)})});return out}
 var cfg={form:{data:FORM,title:'語形変化'},reorderja:{data:REORDER_JA},reorder:{data:REORDER},translate:{data:TRANSLATE}}[MODE];
-var order=shuffle(cfg.data),idx=0,score=0,answered=0;
+var N=cfg.data.length,course=0,order=[],idx=0,score=0,answered=0;
+function startCourse(n){course=n;order=shuffle(cfg.data).slice(0,Math.min(n,N));idx=0;score=0;answered=0;render()}
 function hit(){score++}
 function header(){return '<div class="meta"><span>'+(idx+1)+' / '+order.length+' もん目</span><span>正解 '+score+' / '+answered+'</span></div><div class="bar"><i style="width:'+Math.round(idx/order.length*100)+'%"></i></div>'}
 var OKS=['正解!','ナイス!','その調子!','いいね!'];var NGS=['おしい!','目印を見直してみよう','次はできる!','ここで覚えよう'];
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function finish(){var r=score/order.length;
  var k=r>=0.9?['jumping','すばらしい!やりきったね!']:r>=0.7?['smile','よくできました!その調子!']:r>=0.5?['cheering','あと少し!もう一回やってみよう']:['tiring','ふぅ、おつかれさま!ここまでやりきったのがえらい。ここからが伸びるところ!'];
- app.innerHTML='<div class="slate finish"><div class="chalk s-small">RESULT</div><div class="chalk s-score"><b>'+score+'</b><span> / '+order.length+'</span></div><svg class="chalk s-line" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 C60 2,120 7,180 4 S270 3,298 5" stroke="#f0b765" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg></div><div class="kt-say"><img src="'+KT.img(k[0])+'" alt="KT" width="110"><div class="bubble"><b>KTからひとこと</b>'+k[1]+'</div></div><button class="acc" id="again">もう一度(順番をシャッフル)</button>';document.getElementById('again').onclick=function(){order=shuffle(cfg.data);idx=0;score=0;answered=0;render()}}
+ app.innerHTML='<div class="slate finish"><div class="chalk s-small">RESULT</div><div class="chalk s-score"><b>'+score+'</b><span> / '+order.length+'</span></div><svg class="chalk s-line" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 C60 2,120 7,180 4 S270 3,298 5" stroke="#f0b765" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg></div><div class="kt-say"><img src="'+KT.img(k[0])+'" alt="KT" width="110"><div class="bubble"><b>KTからひとこと</b>'+k[1]+'</div></div><button class="acc" id="again">もう一度(同じコース)</button><button class="sub2" id="pickc">コースをえらびなおす</button>';document.getElementById('again').onclick=function(){startCourse(course)};document.getElementById('pickc').onclick=chooser}
 function nextBtn(){return '<button class="acc" id="next">'+(idx+1<order.length?'次の問題 →':'結果を見る')+'</button>'}
 function bindNext(){document.getElementById('next').onclick=function(){idx++;render()}}
 function render(){if(idx>=order.length)return finish();var q=order[idx];({form:rForm,reorderja:rReorder,reorder:rReorder,translate:rTrans})[MODE](q)}
@@ -73,5 +74,13 @@ function rTrans(q){
  document.getElementById('chk').onclick=check;
  inp.onkeydown=function(e){if(e.key==='Enter'&&!inp.disabled)check()}
 }
-render();
+
+function chooser(){
+ var cs=[[5,'5問コース','約3分','まずはここから'],[10,'10問コース','約6分','ちょうどいい量'],[15,'15問コース','約9分','しっかり練習'],[1000,'20問以上コース','約12分〜','全部で '+N+' 問']];
+ var h='<div class="kt-say"><img src="'+KT.img('smile')+'" alt="KT" width="110"><div class="bubble"><b>KTからひとこと</b>今日はどれくらいやる?<br>無理せず、できる数でOK!</div></div><div class="grid courses">';
+ cs.forEach(function(c){h+='<button class="tile cbtn" data-n="'+c[0]+'"><div class="no">'+(c[0]>=1000?'20+':c[0])+'</div><div class="tt">'+c[1]+'</div><div class="ds">'+c[3]+'<br>めやす '+c[2]+'</div></button>'});
+ app.innerHTML=h+'</div>';
+ Array.prototype.forEach.call(app.querySelectorAll('.cbtn'),function(b){b.onclick=function(){startCourse(+b.getAttribute('data-n'))}});
+}
+chooser();
 })();
