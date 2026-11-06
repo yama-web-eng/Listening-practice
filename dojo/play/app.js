@@ -18,7 +18,7 @@ function finish(){var r=score/order.length;
  var k=r>=0.9?['jumping','すばらしい!やりきったね!']:r>=0.7?['smile','よくできました!その調子!']:r>=0.5?['cheering','あと少し!もう一回やってみよう']:['tiring','ふぅ、おつかれさま!ここまでやりきったのがえらい。ここからが伸びるところ!'];
  if(!wrong.length)k=['jumping',MODE==='basic'?'基本コース クリア!全問正解!KTに自慢してね。':'全問正解!KTに自慢してね。'];
  var w='';
- if(wrong.length){w='<div class="wrongs"><b>まちがえた問題(' +wrong.length+'問)</b><ol>';wrong.forEach(function(q){w+='<li>'+qText(q)+'</li>'});w+='</ol><p>次の塾でKTに質問しよう。<br>分からないところが分かったのは、前進です。</p></div>'}
+ if(wrong.length){w='<div class="wrongs"><b>まちがえた問題(' +wrong.length+'問)</b><ol>';wrong.forEach(function(q){w+='<li>'+qText(q)+'</li>'});w+='</ol><p>次の塾でKTに質問しよう!<br>一歩ずつ英語に寄り添っていこう!</p></div>'}
  app.innerHTML='<div class="slate finish"><div class="chalk s-small">RESULT</div><div class="chalk s-score"><b>'+score+'</b><span> / '+order.length+'</span></div><svg class="chalk s-line" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 C60 2,120 7,180 4 S270 3,298 5" stroke="#f0b765" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg></div><div class="kt-say"><img src="'+KT.img(k[0])+'" alt="KT" width="110"><div class="bubble"><b>KTからひとこと</b>'+k[1]+'</div></div>'+w
   +(wrong.length?'<button class="acc" id="retry">まちがえた問題だけもう一度</button>':'')
   +'<button class="'+(wrong.length?'sub2':'acc')+'" id="again">もう一度'+(MODE==='basic'?'':'(同じコース)')+'</button>'+(MODE==='basic'?'':'<button class="sub2" id="pickc">コースをえらびなおす</button>');
