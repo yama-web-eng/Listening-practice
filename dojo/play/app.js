@@ -16,7 +16,7 @@ var curAudio=null;
 function audioBtn(text){if(typeof KT_AUDIO==='undefined')return '';return '<button type="button" class="sound" data-t="'+esc(text)+'"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.7 5.8a9 9 0 0 1 0 12.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>音声を聞く</span></button>'}
 function bindAudio(){Array.prototype.forEach.call(app.querySelectorAll('.sound'),function(b){b.onclick=function(){
  try{if(curAudio){curAudio.pause()}}catch(e){}
- var au=new Audio(AUDIO_BASE+slug(b.getAttribute('data-t'))+'.mp3');curAudio=au;
+ var au=new Audio(AUDIO_BASE+slug(b.getAttribute('data-t'))+'.mp3?v=2');curAudio=au;
  b.classList.add('on');au.onended=function(){b.classList.remove('on')};
  au.onerror=function(){b.classList.remove('on');b.querySelector('span').textContent='音声がありません'};
  var pr=au.play();if(pr&&pr.catch)pr.catch(function(){b.classList.remove('on')})}})}
