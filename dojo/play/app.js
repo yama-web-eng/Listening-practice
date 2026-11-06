@@ -4,19 +4,29 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function norm(s){return s.toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,]/g,' ').replace(/\s+/g,' ').trim()}
 function expand(s){var re=/\(([^()|]+(?:\|[^()|]+)+)\)/;var m=re.exec(s);if(!m)return[s];var out=[];m[1].split('|').forEach(function(o){expand(s.replace(re,o)).forEach(function(x){out.push(x)})});return out}
-var cfg={form:{data:FORM,title:'語形変化'},reorderja:{data:REORDER_JA},reorder:{data:REORDER},translate:{data:TRANSLATE}}[MODE];
-var N=cfg.data.length,course=0,order=[],idx=0,score=0,answered=0;
-function startCourse(n){course=n;order=shuffle(cfg.data).slice(0,Math.min(n,N));idx=0;score=0;answered=0;render()}
+var cfg={form:{data:FORM},reorderja:{data:REORDER_JA},reorder:{data:REORDER},translate:{data:TRANSLATE},basic:{data:typeof BASIC!=='undefined'?BASIC:[]}}[MODE];
+var N=cfg.data.length,course=0,order=[],idx=0,score=0,answered=0,wrong=[];
+function startCourse(n){course=n;order=shuffle(cfg.data).slice(0,Math.min(n,N));idx=0;score=0;answered=0;wrong=[];render()}
+function retryWrong(){order=shuffle(wrong);idx=0;score=0;answered=0;wrong=[];render()}
+function mark(q,ok){answered++;if(ok)hit();else wrong.push(q)}
+function qText(q){if(MODE==='form')return esc(q.s.replace('{}','( '+q.v+' )'));if(MODE==='reorder')return '語を並べかえ: '+esc(shuffle(q.w.split(' ')).join(' / '));if(MODE==='basic')return esc(q.q);return esc(q.j)}
 function hit(){score++}
 function header(){return '<div class="meta"><span>'+(idx+1)+' / '+order.length+' もん目</span><span>正解 '+score+' / '+answered+'</span></div><div class="bar"><i style="width:'+Math.round(idx/order.length*100)+'%"></i></div>'}
 var OKS=['正解!','ナイス!','その調子!','いいね!'];var NGS=['おしい!','目印を見直してみよう','次はできる!','ここで覚えよう'];
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
 function finish(){var r=score/order.length;
  var k=r>=0.9?['jumping','すばらしい!やりきったね!']:r>=0.7?['smile','よくできました!その調子!']:r>=0.5?['cheering','あと少し!もう一回やってみよう']:['tiring','ふぅ、おつかれさま!ここまでやりきったのがえらい。ここからが伸びるところ!'];
- app.innerHTML='<div class="slate finish"><div class="chalk s-small">RESULT</div><div class="chalk s-score"><b>'+score+'</b><span> / '+order.length+'</span></div><svg class="chalk s-line" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 C60 2,120 7,180 4 S270 3,298 5" stroke="#f0b765" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg></div><div class="kt-say"><img src="'+KT.img(k[0])+'" alt="KT" width="110"><div class="bubble"><b>KTからひとこと</b>'+k[1]+'</div></div><button class="acc" id="again">もう一度(同じコース)</button><button class="sub2" id="pickc">コースをえらびなおす</button>';document.getElementById('again').onclick=function(){startCourse(course)};document.getElementById('pickc').onclick=chooser}
+ if(!wrong.length)k=['jumping',MODE==='basic'?'基本コース クリア!全問正解!KTに自慢してね。':'全問正解!KTに自慢してね。'];
+ var w='';
+ if(wrong.length){w='<div class="wrongs"><b>まちがえた問題(' +wrong.length+'問)</b><ol>';wrong.forEach(function(q){w+='<li>'+qText(q)+'</li>'});w+='</ol><p>次の塾でKTに質問しよう。<br>分からないところが分かったのは、前進です。</p></div>'}
+ app.innerHTML='<div class="slate finish"><div class="chalk s-small">RESULT</div><div class="chalk s-score"><b>'+score+'</b><span> / '+order.length+'</span></div><svg class="chalk s-line" viewBox="0 0 300 8" preserveAspectRatio="none"><path d="M2 5 C60 2,120 7,180 4 S270 3,298 5" stroke="#f0b765" stroke-width="3.2" fill="none" stroke-linecap="round"/></svg></div><div class="kt-say"><img src="'+KT.img(k[0])+'" alt="KT" width="110"><div class="bubble"><b>KTからひとこと</b>'+k[1]+'</div></div>'+w
+  +(wrong.length?'<button class="acc" id="retry">まちがえた問題だけもう一度</button>':'')
+  +'<button class="'+(wrong.length?'sub2':'acc')+'" id="again">もう一度'+(MODE==='basic'?'':'(同じコース)')+'</button>'+(MODE==='basic'?'':'<button class="sub2" id="pickc">コースをえらびなおす</button>');
+ if(wrong.length)document.getElementById('retry').onclick=retryWrong;
+ document.getElementById('again').onclick=function(){startCourse(course)};var pc=document.getElementById('pickc');if(pc)pc.onclick=chooser}
 function nextBtn(){return '<button class="acc" id="next">'+(idx+1<order.length?'次の問題 →':'結果を見る')+'</button>'}
 function bindNext(){document.getElementById('next').onclick=function(){idx++;render()}}
-function render(){if(idx>=order.length)return finish();var q=order[idx];({form:rForm,reorderja:rReorder,reorder:rReorder,translate:rTrans})[MODE](q)}
+function render(){if(idx>=order.length)return finish();var q=order[idx];({form:rForm,reorderja:rReorder,reorder:rReorder,translate:rTrans,basic:rBasic})[MODE](q)}
 
 function rForm(q){
  var parts=q.s.split('{}');
@@ -28,7 +38,7 @@ function rForm(q){
   var ok=q.a.some(function(x){return norm(x)===norm(inp.value)});
   var p0=esc(parts[0]);if(q.n)p0=p0.replace(esc(q.n),'<span class="ant">'+esc(q.n)+'</span>');var full=p0+'<b>'+esc(q.a[0])+'</b>'+esc(parts[1]);
   q.m.forEach(function(m){full=full.replace(esc(m),'<mark>'+esc(m)+'</mark>')});
-  answered++;if(ok)hit();
+  mark(q,ok);
   document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.a[0])+'」')+'</b><p class="en">'+full+'</p><p>目印: '+q.m.map(function(m){return '<mark>'+esc(m)+'</mark>'}).join(' ')+'<br>'+esc(q.e).replace('　★','<br>★')+'</p></div>'+nextBtn();
   document.getElementById('chk').disabled=true;inp.disabled=true;bindNext()}
  document.getElementById('chk').onclick=check;
@@ -50,7 +60,7 @@ function rReorder(q){
  document.getElementById('clr').onclick=function(){if(done)return;picked=[];draw()};
  chk.onclick=function(){
   done=true;var mine=picked.map(function(i){return words[i]}).join(' ');
-  var ok=norm(mine)===norm(q.a);answered++;if(ok)hit();
+  var ok=norm(mine)===norm(q.a);mark(q,ok);
   document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS))+'</b><p class="en">'+esc(q.a)+'</p>'+(ok?'':'<p class="hint">あなたの答え: '+esc(mine)+'</p>')+'<p class="hint">プリントでは、文頭は大文字・最後はピリオドを忘れずに</p></div>'+nextBtn();
   chk.disabled=true;draw();bindNext()}
 }
@@ -65,14 +75,26 @@ function rTrans(q){
  function check(){
   var ok=accepted.indexOf(norm(inp.value))>=0;
   document.getElementById('chk').disabled=true;inp.disabled=true;
-  if(ok){answered++;hit();
+  if(ok){mark(q,true);
    document.getElementById('res').innerHTML='<div class="res ok"><b class="big ok">'+pick(OKS)+'</b><p class="en">'+esc(model)+'</p><p>'+esc(q.m)+'</p></div>'+nextBtn();bindNext()}
   else{
    document.getElementById('res').innerHTML='<div class="res ng"><b class="big ng">あれ?ちがうかも</b><p class="hint">あなたの答え: '+esc(inp.value||'(未入力)')+'</p><p class="en">模範解答: '+esc(model)+'</p><p>'+esc(q.m)+'</p><p>言い方がちがうだけで、文法的に正しければ○にしてOK。自分で判定しよう。</p><button id="okb">自分の答えも正しかった</button><button id="ngb" class="sub2">まちがっていた</button></div>';
-   function go(good){answered++;if(good)hit();document.getElementById('res').insertAdjacentHTML('beforeend',nextBtn());document.getElementById('okb').disabled=true;document.getElementById('ngb').disabled=true;bindNext()}
+   function go(good){mark(q,good);document.getElementById('res').insertAdjacentHTML('beforeend',nextBtn());document.getElementById('okb').disabled=true;document.getElementById('ngb').disabled=true;bindNext()}
    document.getElementById('okb').onclick=function(){go(true)};document.getElementById('ngb').onclick=function(){go(false)}}}
  document.getElementById('chk').onclick=check;
  inp.onkeydown=function(e){if(e.key==='Enter'&&!inp.disabled)check()}
+}
+
+function rBasic(q){
+ var cs=shuffle(q.c.map(function(t,i){return{t:t,ok:i===0}}));
+ var h=header()+'<div class="card"><span class="qlabel">Q'+(idx+1)+'</span><p class="en">'+esc(q.q)+'</p></div><div class="choices">';
+ cs.forEach(function(c,i){h+='<button class="choice" data-i="'+i+'">'+esc(c.t)+'</button>'});
+ app.innerHTML=h+'</div><div id="res"></div>';
+ Array.prototype.forEach.call(app.querySelectorAll('.choice'),function(b){b.onclick=function(){
+  var c=cs[+b.getAttribute('data-i')],ok=c.ok;mark(q,ok);
+  Array.prototype.forEach.call(app.querySelectorAll('.choice'),function(x){x.disabled=true;if(cs[+x.getAttribute('data-i')].ok)x.className+=' right'});
+  if(!ok)b.className+=' bad';
+  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.c[0])+'」')+'</b><p>'+esc(q.e)+'</p></div>'+nextBtn();bindNext()}})
 }
 
 function chooser(){
@@ -82,5 +104,5 @@ function chooser(){
  app.innerHTML=h+'</div>';
  Array.prototype.forEach.call(app.querySelectorAll('.cbtn'),function(b){b.onclick=function(){startCourse(+b.getAttribute('data-n'))}});
 }
-chooser();
+if(MODE==='basic')startCourse(N);else chooser();
 })();

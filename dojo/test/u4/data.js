@@ -107,3 +107,16 @@ var TRANSLATE=[
 {"j": "私は、おもしろい話をする友達が好きです。", "h": "tell stories:話をする / 関係代名詞 who", "a": "I like the friend (who|that) tells funny stories.", "m": "the friend は3人称単数 → tells。"},
 {"j": "向こうで走っている犬は、私の犬です。", "h": "over there:向こうで / 関係代名詞 which", "a": "The dog (which|that) is running over there is mine.", "m": "主格 which の後ろは is running(現在進行形)。"}
 ];
+var BASIC=[
+{"q": "先行詞が「人」のとき、主格の関係代名詞として使うのはどれ?", "c": ["who", "which", "what", "how"], "e": "人 → who、物 → which。that は人にも物にも使えます。"},
+{"q": "先行詞が「物・動物」のとき、主格の関係代名詞として使うのはどれ?", "c": ["which", "who", "what", "how"], "e": "物・動物 → which。(that でも OK)"},
+{"q": "人にも物にも使える関係代名詞はどれ?", "c": ["that", "who", "which", "what"], "e": "that は先行詞が人でも物でも使えます。who は人だけ、which は物だけです。"},
+{"q": "主格の関係代名詞の「すぐ後ろ」に来るのはどれ?", "c": ["動詞", "主語 + 動詞", "名詞", "前置詞"], "e": "主格の関係代名詞は、後ろの文の「主語」の働きをします。だから、すぐ後ろは動詞です。"},
+{"q": "主格の関係代名詞は省略できる?", "c": ["省略できない", "いつでも省略できる", "who だけ省略できる", "that だけ省略できる"], "e": "主格は省略できません(後ろに主語がなく、すぐ動詞が来るため)。省略できるのは目的格(Unit 5)です。"},
+{"q": "( )に入る語は? The girl ( ) lives next door is Ayu.", "c": ["who", "which", "what", "it"], "e": "先行詞 The girl は人 → who。"},
+{"q": "( )に入る語は? This is the book ( ) was written by Soseki.", "c": ["which", "who", "what", "it"], "e": "先行詞 the book は物 → which(that も可)。"},
+{"q": "( )に入る語は? I have a brother who ( ) the guitar well.", "c": ["plays", "play", "playing", "to play"], "e": "先行詞 a brother は3人称単数。現在の文なので plays(3単現の s)。"},
+{"q": "( )に入る語は? The students who ( ) in this room are my classmates.", "c": ["study", "studies", "studied", "studying"], "e": "先行詞 The students は複数、現在の文 → study(s は付けない)。"},
+{"q": "「I have a dog. It runs fast.」を1文にしたものはどれ?", "c": ["I have a dog which runs fast.", "I have a dog it runs fast.", "I have a dog who runs fast.", "I have a dog which it runs fast."], "e": "It を which に変えてくっつけます。It は残しません。物(a dog)なので who ではなく which です。"}
+];
+// 基本コース: c[0] が正解(表示時にシャッフル)
