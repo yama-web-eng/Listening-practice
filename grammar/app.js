@@ -8,10 +8,10 @@ var cfg={form:{data:FORM,title:'語形変化'},reorderja:{data:REORDER_JA},reord
 var order=shuffle(cfg.data),idx=0,score=0,answered=0;
 function hit(){score++;try{localStorage.setItem('kt_correct',ktTotal()+1)}catch(e){}}
 function header(){return '<div class="meta"><span>'+(idx+1)+' / '+order.length+' もん目</span><span>⭐ '+score+' / '+answered+'</span></div><div class="bar"><i style="width:'+Math.round(idx/order.length*100)+'%"></i></div>'}
-var OKS=['押忍!ナイス!🥋','見事!🎉','さすがだ!💯','その調子だ!👍','いい動きだ!✨'];var NGS=['おしい!目印を見直せ!💪','まだまだ修行だ!','ドンマイ!次はできる!','ここで覚えよう📌'];
+var OKS=['正解!🎉','ナイス!✨','その調子!👍','いいね!💯'];var NGS=['おしい!💪','目印を見直してみよう','次はできる!','ここで覚えよう📌'];
 function pick(a){return a[Math.floor(Math.random()*a.length)]}
-function finish(){var r=score/order.length;var face=r>=0.9?'🏆':r>=0.7?'🎉':r>=0.5?'😊':'💪';var msg=r>=0.9?'免許皆伝!見事だ!KT先生も感心したぞ🥋':r>=0.7?'よくやった!あと一歩で免許皆伝だ!':r>=0.5?'悪くない!もう一周すれば必ず強くなる!':'ここからが伸びるところ!もう一回、修行だ!';
- app.innerHTML='<div class="card finish"><div class="big">'+face+'</div><p><b>'+order.length+'問中 '+score+'問</b> 正解!</p><p><b>KT先生:</b> '+msg+'</p><p class="hint">'+ktBeltText()+'</p></div><button class="acc" id="again">もう一度(順番をシャッフル)</button>';document.getElementById('again').onclick=function(){order=shuffle(cfg.data);idx=0;score=0;answered=0;render()}}
+function finish(){var r=score/order.length;var face=r>=0.9?'🏆':r>=0.7?'🎉':r>=0.5?'😊':'💪';var msg=r>=0.9?'すばらしい!':r>=0.7?'よくできました!':r>=0.5?'あと少し!もう一回やってみよう':'ここからが伸びるところ!もう一回!';
+ app.innerHTML='<div class="card finish"><div class="big">'+face+'</div><p><b>'+order.length+'問中 '+score+'問</b> 正解!</p><p>'+msg+'</p><p class="hint">'+ktBeltText()+'</p></div><button class="acc" id="again">もう一度(順番をシャッフル)</button>';document.getElementById('again').onclick=function(){order=shuffle(cfg.data);idx=0;score=0;answered=0;render()}}
 function nextBtn(){return '<button class="acc" id="next">'+(idx+1<order.length?'次の問題 →':'結果を見る')+'</button>'}
 function bindNext(){document.getElementById('next').onclick=function(){idx++;render()}}
 function render(){if(idx>=order.length)return finish();var q=order[idx];({form:rForm,reorderja:rReorder,reorder:rReorder,translate:rTrans})[MODE](q)}
