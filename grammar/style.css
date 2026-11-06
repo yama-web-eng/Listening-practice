@@ -48,3 +48,4 @@ mark{background:var(--yellow);color:var(--fg);padding:0 4px;border-radius:6px;fo
 .dojo-sub{font-size:.78rem;font-weight:700;color:var(--orange);letter-spacing:.05em}
 .tip{background:var(--blue2);border-radius:18px;padding:12px 16px;margin:18px 0 8px;font-size:.92rem}
 .tip b{color:var(--blue)}
+.ant{border-bottom:3px solid var(--orange);padding-bottom:1px}

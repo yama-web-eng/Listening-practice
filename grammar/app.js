@@ -24,10 +24,10 @@ function rForm(q){
  var inp=document.getElementById('ans');inp.focus();
  function check(){
   var ok=q.a.some(function(x){return norm(x)===norm(inp.value)});
-  var full=esc(parts[0])+'<b>'+esc(q.a[0])+'</b>'+esc(parts[1]);
+  var p0=esc(parts[0]);if(q.n)p0=p0.replace(esc(q.n),'<span class="ant">'+esc(q.n)+'</span>');var full=p0+'<b>'+esc(q.a[0])+'</b>'+esc(parts[1]);
   q.m.forEach(function(m){full=full.replace(esc(m),'<mark>'+esc(m)+'</mark>')});
   answered++;if(ok)hit();
-  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.a[0])+'」')+'</b><p class="en">'+full+'</p><p>目印: '+q.m.map(function(m){return '<mark>'+esc(m)+'</mark>'}).join(' ')+'<br>'+esc(q.e)+'</p></div>'+nextBtn();
+  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.a[0])+'」')+'</b><p class="en">'+full+'</p><p>目印: '+q.m.map(function(m){return '<mark>'+esc(m)+'</mark>'}).join(' ')+'<br>'+esc(q.e).replace('　★','<br>★')+'</p></div>'+nextBtn();
   document.getElementById('chk').disabled=true;inp.disabled=true;bindNext()}
  document.getElementById('chk').onclick=check;
  inp.onkeydown=function(e){if(e.key==='Enter'&&!inp.disabled)check()}
