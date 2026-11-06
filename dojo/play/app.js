@@ -42,7 +42,7 @@ function render(){if(idx>=order.length)return finish();var q=order[idx];({form:r
 
 function rForm(q){
  var parts=q.s.split('{}');
- app.innerHTML=header()+'<div class="card"><span class="qlabel">Q'+(idx+1)+'</span><p class="en">'+esc(parts[0])+'( <b>'+esc(q.v)+'</b> )'+esc(parts[1])+'</p><p class="hint">( )の動詞を正しい形に。答えは1語とは限りません。目印の言葉を探そう!</p></div>'
+ app.innerHTML=header()+'<div class="card"><span class="qlabel">Q'+(idx+1)+'</span><p class="en">'+esc(parts[0])+(q.v?'( <b>'+esc(q.v)+'</b> )':'( ______ )')+esc(parts[1])+'</p><p class="hint">'+(q.hint?esc(q.hint):'( )の動詞を正しい形に。答えは1語とは限りません。目印の言葉を探そう!')+'</p></div>'
  +'<input type="text" id="ans" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="答えを入力">'
  +'<button id="chk">答えあわせ</button><div id="res"></div>';
  var inp=document.getElementById('ans');inp.focus();

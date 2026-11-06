@@ -8,11 +8,11 @@
 <div class="boardwrap mini"><div class="frame"><header class="board"><div class="chalk-sub chalk" id="psub"></div><h1 class="chalk" id="ph1"></h1></header></div></div><div class="trays mini"><div class="tray"><i></i><i></i><i></i><i class="er"></i></div></div>
 <div class="wrap"><div class="welcome kt"><img class="kt-img" id="kt-w" alt="KT" width="96"><div><b id="ptitle"></b><span id="pdesc">コースをえらんでね。</span></div></div>
 <div class="sec">基本コース</div><div class="grid"><a class="tile" id="basic" href="#"><div class="no">基本</div><div class="tt">必須10問</div><div class="ds">これはできないとまずい!<br>4択でルール確認</div></a></div>
-<div class="sec" style="margin-top:22px">実践コース</div><div class="grid"><a class="tile soon" href="#"><span class="ribbon">準備中</span><div class="no">実践</div><div class="tt">4種類の問題</div><div class="ds">語形変化・並べかえ・日本語を英語にする</div></a></div>
+<div class="sec" style="margin-top:22px">実践コース</div><div class="grid"><a class="tile soon" id="prac" href="#"><span class="ribbon">準備中</span><div class="no">実践</div><div class="tt">4種類の問題</div><div class="ds">語形変化・並べかえ・日本語を英語にする</div></a></div>
 <div class="tip" id="tip"></div><a class="back" id="back" href="chu3.html">← もどる</a>
-<script>var Q=new URLSearchParams(location.search),G=Q.get("g")||"3",PK=Q.get("p");document.write('<script src="data/basic'+G+'.js?v=2"><\/script>')</script>
+<script>var Q=new URLSearchParams(location.search),G=Q.get("g")||"3",PK=Q.get("p");var PRACK={"1": ["4-1", "4-2", "4-3", "5-1", "5-2", "5-3", "5-4", "6-1", "6-2", "6-3", "6-4"], "2": ["4-1", "4-2", "4-3", "4-4", "5-1", "5-2", "5-3", "6-1", "6-2", "6-3", "6-4"], "3": ["5-1-2", "5-3", "6-1", "6-2", "6-3"]};document.write('<script src="data/basic'+G+'.js?v=2"><\/script>')</script>
 <script>(function(){var d=(window.BASIC_PARTS||{})[PK];document.getElementById("kt-w").src=KT.img("smile");var NEWU=["1","2","3","5","6","7"],un=(PK||"").split("-")[0],bk=(G!="3"||NEWU.indexOf(un)>=0)?"unit.html?g="+G+"&u="+un:"chu"+G+".html";document.getElementById("back").href=bk;document.getElementById("topback").href=bk;
 if(!d){document.getElementById("ptitle").textContent="ページが見つかりません";return}
 var lab="中"+G+" Unit "+d.label;document.title=lab+"｜KTの特訓道場";document.getElementById("psub").textContent=lab;document.getElementById("ph1").textContent=d.title;document.getElementById("ptitle").textContent=d.title;
-document.getElementById("basic").href="basic.html?g="+G+"&p="+PK;
+document.getElementById("basic").href="basic.html?g="+G+"&p="+PK;var PA=(window.PRACK||{})[G]||[];if(PA.indexOf(PK)>=0){var pt=document.getElementById("prac");pt.className="tile";pt.href="prac.html?g="+G+"&p="+PK;var rb=pt.querySelector(".ribbon");if(rb)rb.remove()};
 document.getElementById("tip").innerHTML="<b>KTからのワンポイントアドバイス</b><br>"+d.tips[Math.floor(Math.random()*d.tips.length)]})()</script><footer>URUMA</footer></div></body></html>
