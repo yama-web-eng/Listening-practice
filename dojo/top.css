@@ -7,7 +7,7 @@ body.home{background:#fbfcfe;color:var(--ink);font-family:"Zen Maru Gothic","Hir
 /* ===== 黒板 ===== */
 .boardwrap{max-width:720px;margin:22px auto 0;padding:0 14px}
 .frame{background:linear-gradient(180deg,#a9794a,#8c5f35);padding:9px;border-radius:5px;box-shadow:0 1px 0 #c9a074 inset,0 6px 14px rgba(40,30,20,.25)}
-.board{position:relative;overflow:hidden;text-align:center;color:#f6f8f3;padding:38px 16px 40px;border-radius:2px;
+.board{position:relative;overflow:hidden;text-align:center;color:#fbfdf8;padding:38px 16px 40px;border-radius:2px;
  background-color:#2c3f36;
  background-image:
   url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .22 0'/></filter><rect width='300' height='300' filter='url(%23n)'/></svg>"),
@@ -21,12 +21,16 @@ body.home{background:#fbfcfe;color:var(--ink);font-family:"Zen Maru Gothic","Hir
   radial-gradient(45% 14% at 72% 32%,rgba(255,255,255,.06),transparent);filter:blur(6px)}
 .board>*{position:relative}
 .chalk{filter:url(#chalk)}
-.board .chalk-sub{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.2em;color:#f3d8a8;opacity:.92}
-.board h1{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:2.3rem;letter-spacing:.08em;margin:8px 0 10px;color:#fbfdf8;opacity:.95}
+.board .chalk-sub{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.2em;color:#ffe2b0}
+.board h1{font-family:"Klee One","Zen Maru Gothic",sans-serif;font-weight:600;font-size:2.3rem;letter-spacing:.08em;margin:8px 0 10px;color:#fff;text-shadow:0 0 6px rgba(255,255,255,.35)}
 .board .uline{display:block;width:62%;max-width:300px;height:8px;margin:0 auto 12px}
-.board .eq{font-family:"Klee One",serif;font-size:1rem;letter-spacing:.1em;color:#bcdcf6;opacity:.92}
-.board .scrawl{position:absolute;color:rgba(255,255,255,.26);font-family:"Klee One",serif;font-size:.82rem;pointer-events:none;filter:url(#chalk)}
-@media(max-width:520px){.board .scrawl{display:none}}
+.board .eq{font-family:"Klee One",serif;font-size:1rem;letter-spacing:.1em;color:#cfe8fb}
+.board .scrawl{position:absolute;color:rgba(255,255,255,.55);font-family:"Klee One",serif;font-size:.85rem;line-height:1.4;pointer-events:none;filter:url(#chalk)}
+.scrawl.s1{left:3.5%;top:10%;transform:rotate(-5deg)}.scrawl.s2{right:3.5%;top:12%;transform:rotate(4deg)}
+.scrawl.s3{left:4%;top:42%;transform:rotate(3deg)}.scrawl.s4{right:4%;top:44%;transform:rotate(-3deg);text-align:left}
+.scrawl.s5{left:3.5%;bottom:11%;transform:rotate(-3deg)}.scrawl.s6{right:3.5%;bottom:11%;transform:rotate(3deg)}
+.scrawl.s7{left:38%;bottom:5%;transform:rotate(-1deg);font-size:.78rem;color:rgba(255,255,255,.4)}
+@media(max-width:600px){.board{padding:58px 12px 62px}.scrawl.s3,.scrawl.s4,.scrawl.s7{display:none}.board .scrawl{font-size:.74rem}.scrawl.s1{top:7%}.scrawl.s2{top:8%}.scrawl.s5{bottom:7%}.scrawl.s6{bottom:7%}}
 /* チョーク受け */
 .tray{position:relative;margin:0 -2px;height:16px;background:linear-gradient(#b98652,#8f6137);border-radius:0 0 4px 4px;box-shadow:0 3px 0 #6d4824;max-width:720px}
 .trays{max-width:720px;margin:0 auto;padding:0 14px}
@@ -54,3 +58,5 @@ body.home{background:#fbfcfe;color:var(--ink);font-family:"Zen Maru Gothic","Hir
 .tile .ribbon{position:absolute;top:14px;right:14px;color:var(--grey);font-size:.68rem;font-weight:700;border:1px solid var(--line);border-radius:999px;padding:0 9px;background:#f4f8fc}
 .tile.soon{pointer-events:none}
 .home footer{margin-top:34px;letter-spacing:.2em}
+
+.sample{text-align:center;margin:26px 0 0;font-size:.9rem}.sample a{color:var(--blue);font-weight:700;text-decoration:none;border-bottom:1px dashed var(--blue)}
