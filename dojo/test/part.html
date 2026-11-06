@@ -9,9 +9,9 @@
 <div class="wrap"><div class="welcome kt"><img class="kt-img" id="kt-w" alt="KT" width="96"><div><b id="ptitle"></b><span id="pdesc">コースをえらんでね。</span></div></div>
 <div class="sec">基本コース</div><div class="grid"><a class="tile" id="basic" href="#"><div class="no">基本</div><div class="tt">必須10問</div><div class="ds">これはできないとまずい!<br>4択でルール確認</div></a></div>
 <div class="sec" style="margin-top:22px">実践コース</div><div class="grid"><a class="tile soon" href="#"><span class="ribbon">準備中</span><div class="no">実践</div><div class="tt">4種類の問題</div><div class="ds">語形変化・並べかえ・日本語を英語にする</div></a></div>
-<div class="tip" id="tip"></div><a class="back" id="back" href="chu3.html">← Unit選択にもどる</a>
-<script>var Q=new URLSearchParams(location.search),G=Q.get("g")||"3",PK=Q.get("p");document.write('<script src="data/basic'+G+'.js?v=1"><\/script>')</script>
-<script>(function(){var d=(window.BASIC_PARTS||{})[PK];document.getElementById("kt-w").src=KT.img("smile");document.getElementById("back").href="chu"+G+".html";document.getElementById("topback").href="chu"+G+".html";
+<div class="tip" id="tip"></div><a class="back" id="back" href="chu3.html">← もどる</a>
+<script>var Q=new URLSearchParams(location.search),G=Q.get("g")||"3",PK=Q.get("p");document.write('<script src="data/basic'+G+'.js?v=2"><\/script>')</script>
+<script>(function(){var d=(window.BASIC_PARTS||{})[PK];document.getElementById("kt-w").src=KT.img("smile");var NEWU=["1"],un=(PK||"").split("-")[0],bk=NEWU.indexOf(un)>=0?"unit.html?g="+G+"&u="+un:"chu"+G+".html";document.getElementById("back").href=bk;document.getElementById("topback").href=bk;
 if(!d){document.getElementById("ptitle").textContent="ページが見つかりません";return}
 var lab="中"+G+" Unit "+d.label;document.title=lab+"｜KTの特訓道場";document.getElementById("psub").textContent=lab;document.getElementById("ph1").textContent=d.title;document.getElementById("ptitle").textContent=d.title;
 document.getElementById("basic").href="basic.html?g="+G+"&p="+PK;

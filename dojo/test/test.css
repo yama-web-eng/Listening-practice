@@ -13,3 +13,8 @@ a.unit:not(.soon):hover{border-color:#b9d3ea;box-shadow:0 8px 18px rgba(34,49,63
 .unit li a:hover{color:var(--blue)}
 .unit li a .tag{margin-left:auto;padding-left:10px;font-size:.68rem;font-weight:700;color:var(--blue);white-space:nowrap}
 .unit li a::after{content:"›";margin-left:8px;color:var(--grey)}
+a.unit{display:block;text-decoration:none;color:var(--ink)}
+a.unit:hover{border-color:#b9d3ea;box-shadow:0 8px 18px rgba(34,49,63,.10)}
+.unit .tag.go{font-size:.78rem;font-weight:700;color:#fff;background:var(--blue);border-radius:999px;padding:2px 12px}
+.unit ul.plain li{padding:3px 0}
+.unit ul.plain li b{display:inline-block;min-width:3.4em;color:var(--blue)}
