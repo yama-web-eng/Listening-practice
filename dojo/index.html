@@ -2,7 +2,7 @@
 <html lang="ja"><head><meta charset="utf-8"><meta name="color-scheme" content="light only"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KTの特訓道場｜Uruma</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Klee+One:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="top.css?v=6"></head>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="top.css?v=7"><script src="kt-outfit.js?v=1"></script></head>
 <body class="home">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <filter id="chalk" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="d"/><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="9" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -.6 1.15" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
@@ -23,7 +23,7 @@
 </header></div></div>
 <div class="trays"><div class="tray"><i></i><i></i><i></i><i class="er"></i></div></div>
 <div class="wrap">
-<div class="welcome kt" id="about"><img class="kt-img" src="img/kt/kt-yellow.webp" alt="KT" width="86"><div><b>KTの特訓道場へようこそ!</b>学校のテスト、高校入試、単語、動詞。自分のペースで、何回でも練習できます。</div></div>
+<div class="welcome kt" id="about"><img class="kt-img" id="kt-welcome" alt="KT" width="96"><div><b>KTの特訓道場へようこそ!</b>学校のテスト、高校入試、単語、動詞。自分のペースで、何回でも練習できます。</div></div>
 <h2 class="sec" id="dojo">道場をえらぶ</h2>
 <div class="grid">
 <a class="tile soon" href="#"><span class="ribbon">準備中</span><div class="no">01</div><div class="tt">テスト対策道場</div><div class="ds">中1・中2・中3<br>Unitを選んで練習</div></a>
@@ -33,4 +33,4 @@
 </div>
 <p class="sample"><a href="play/">▶ 問題ページの見本を見る(仮)</a></p>
 <footer>URUMA</footer>
-</div></body></html>
+</div><script>document.getElementById("kt-welcome").src=KT.img("staring")</script></body></html>

@@ -56,11 +56,11 @@ a.back{border:1px solid var(--line);background:#fff;color:var(--blue);padding:6p
 
 /* KT キャラクター */
 .res::before{content:"";float:right;width:74px;height:108px;margin:-2px -6px 4px 10px;background:no-repeat center bottom/contain}
-.res.ok::before{background-image:url(../img/kt/kt-track.webp)}
-.res.ng::before{background-image:url(../img/kt/kt-denim.webp)}
+.res.ok::before{background-image:var(--kt-ok)}
+.res.ng::before{background-image:var(--kt-ng)}
 .res::after{content:"";display:block;clear:both}
 .tip{overflow:hidden}
-.tip::before{content:"";float:right;width:64px;height:96px;margin:-6px -4px 0 10px;background:url(../img/kt/kt-yellow.webp) no-repeat center bottom/contain}
+.tip::before{content:"";float:right;width:64px;height:96px;margin:-6px -4px 0 10px;background:var(--kt-tip) no-repeat center bottom/contain}
 .kt-say{display:flex;align-items:flex-end;gap:12px;margin:6px 0 4px}
 .kt-say img{flex:0 0 auto;height:auto;display:block}
 .bubble{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:26px;font-weight:700;line-height:1.6}
