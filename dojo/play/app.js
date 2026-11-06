@@ -5,7 +5,8 @@ function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 function norm(s){return s.toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,]/g,' ').replace(/\s+/g,' ').trim()}
 function expand(s){var re=/\(([^()|]+(?:\|[^()|]+)+)\)/;var m=re.exec(s);if(!m)return[s];var out=[];m[1].split('|').forEach(function(o){expand(s.replace(re,o)).forEach(function(x){out.push(x)})});return out}
-var cfg={form:{data:FORM},reorderja:{data:REORDER_JA},reorder:{data:REORDER},translate:{data:TRANSLATE},basic:{data:typeof BASIC!=='undefined'?BASIC:[]}}[MODE];
+function dat(n){return typeof window[n]!=='undefined'?window[n]:[]}
+var cfg={form:{data:dat('FORM')},reorderja:{data:dat('REORDER_JA')},reorder:{data:dat('REORDER')},translate:{data:dat('TRANSLATE')},basic:{data:dat('BASIC')}}[MODE];
 var N=cfg.data.length,course=0,order=[],idx=0,score=0,answered=0,wrong=[];
 function startCourse(n){course=n;order=shuffle(cfg.data).slice(0,Math.min(n,N));idx=0;score=0;answered=0;wrong=[];render()}
 function retryWrong(){order=shuffle(wrong);idx=0;score=0;answered=0;wrong=[];render()}
@@ -105,7 +106,7 @@ function rBasic(q){
   var c=cs[+b.getAttribute('data-i')],ok=c.ok;mark(q,ok);
   Array.prototype.forEach.call(app.querySelectorAll('.choice'),function(x){x.disabled=true;if(cs[+x.getAttribute('data-i')].ok)x.className+=' right'});
   if(!ok)b.className+=' bad';
-  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.c[0])+'」')+'</b><p>'+esc(q.e)+'</p></div>'+nextBtn();bindNext()}})
+  document.getElementById('res').innerHTML='<div class="res '+(ok?'ok':'ng')+'"><b class="big '+(ok?'ok':'ng')+'">'+(ok?pick(OKS):pick(NGS)+' 正解は「'+esc(q.c[0])+'」')+'</b><p>'+esc(q.e)+'</p>'+(q.s?audioBtn(q.s):'')+'</div>'+nextBtn();bindAudio();bindNext()}})
 }
 
 function chooser(){
